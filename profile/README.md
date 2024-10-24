@@ -27,4 +27,6 @@ WeDot is a fork of Godot. WeDot Engine is a multi-platform 2D and 3D game engine
     <a href="https://gitee.com/Wedot-Engine/WeDot"><img alt="Gitee repo" src="https://img.shields.io/website?url=https%3A%2F%2Fgitee.com%2FPJ-568%2Fqmole-source-site&up_color=007bff&up_message=Wedot-Engine/WeDot&logo=gitee&label=Gitee" loading="lazy"></a>
 </p>
 
+![Current](https://repobeats.axiom.co/api/embed/e8d7fcfa4529d0f4a1a8383ced8d3cd7d2f50099.svg "Repobeats analytics image")
+
 [Visit](https://wedot-engine.github.io)
