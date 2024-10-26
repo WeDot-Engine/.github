@@ -1,0 +1,35 @@
+name: SyncToGitee
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/SyncToGitee.yml'
+  schedule:
+    - cron: '0 18 * * *'  # 每天 2 点运行 18 + 8 - 24
+
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source codes
+        uses: actions/checkout@v3
+
+      - name: Get repository list exclude private and fork
+        id: repo
+        uses: yi-Xu-0100/repo-list-generator@v1.1.1
+
+      - name: Mirror the Github organization repos to Gitee.
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: 'github/WeDot-Engine'
+          dst: 'gitee/WeDot-Engine'
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token:  ${{ secrets.GITEE_TOKEN }}
+          force_update: true
+          account_type: org
+          debug: true
+          static_list: ${{ steps.repo.outputs.repoList }}  # 仅同步非 private ，非 fork 的仓库
+          black_list: "WeDot-Engine.github.io" # 由于仓库名称要求不同，采用该仓库内自有的同步
+          # black_list: ".github,WeDot-Engine.github.io"
