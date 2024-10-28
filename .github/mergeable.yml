@@ -1,0 +1,38 @@
+version: 2
+mergeable:
+
+  # 检查提交标题是否合规
+  - when: pull_request.*
+    name: '标题规范检查'
+    validate:
+      - do: title
+        begins_with:
+          match: ['【初始', '【更改', '【新增', '【修复', '【格式', '【文档', '【测试', '【维护']
+    fail:
+      - do: comment
+        payload:
+          body: >
+            本轮提交存在以下问题：
+
+            - 标题须以“【初始】”、“【更改】”、“【新增】”、“【修复】”、“【格式】”、“【文档】”、“【测试】”或“【维护】”之一开头。
+  
+  # 检查提交或者 issue 是否过期
+  - when: schedule.repository
+    name: '提案期效检查'
+    validate:
+      - do: stale
+        days: 15
+        type: pull_request, issues
+    pass:
+      - do: comment
+        payload:
+          body: 已超过 15 天未更新，请负责人检查该提案。如需继续处理，请留言更新状态。
+
+  # 欢迎贡献者
+  - when: pull_request.opened
+    name: "欢迎贡献者"
+    validate: []
+    pass:
+      - do: comment
+        payload:
+          body: 感谢您的提交。请耐心等待审核。
