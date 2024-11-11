@@ -1,4 +1,6 @@
-name: SyncToGitee
+name: 仓库同步
+description: 同步仓库到码云
+
 on:
   workflow_dispatch:
   push:
@@ -17,12 +19,12 @@ jobs:
       - name: Mirror the Github organization repos to Gitee.
         uses: Yikun/hub-mirror-action@master
         with:
-          src: 'github/Wedot-Engine'
+          src: 'github/WeDot-Engine'
           dst: 'gitee/wedot-engine'
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
           dst_token:  ${{ secrets.GITEE_TOKEN }}
           force_update: true
-          timeout: '1h'
+          timeout: '2h'
           account_type: org
           debug: true
-          mappings: 'Wedot-Engine.github.io=>wedot-engine.gitee.io'
+          mappings: 'WeDot-Engine.github.io=>wedot-engine.gitee.io'
